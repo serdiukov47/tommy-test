@@ -1,0 +1,238 @@
+@import 'variables.less';
+@import 'mixins.less';
+@import 'animations.less';
+@import 'smart-grid.less';
+.reset();
+.wrapper{
+  .wrapper();
+}
+@keyframes slideRight {
+    0% {
+        transform: translateX(-50%);
+    }
+    50%{
+        transform: translateX(-25%);
+    }
+    100% {
+        transform: translateX(0%);
+    }
+}
+@keyframes slideDown {
+    0% {
+        transform: translateY(-200%);
+    }
+    50%{
+        transform: translateY(-100%);
+    }
+    100% {
+        transform: translateY(0%);
+    }
+}
+@keyframes slideUp {
+    0% {
+        transform: translateY(0%);
+    }
+    50%{
+        transform: translateY(-100%);
+    }
+    100% {
+        transform: translateY(-200%);
+    }
+}
+@keyframes slideLeft {
+    0% {
+        transform: translateX(0%);
+    }
+    50%{
+        transform: translateX(-25%);
+    }
+    100% {
+        transform: translateX(-50%);
+    }
+}
+@keyframes nextSlide {
+    0% {
+        transform: translateX(100%);
+    }
+    50%{
+        transform: translateX(50%);
+    }
+    100% {
+        transform: translateX(0%);
+    }
+}
+@keyframes previousSlide {
+    0% {
+        transform: translateX(0%);
+    }
+    50%{
+        transform: translateX(-50%);
+    }
+    100% {
+        transform: translateX(-100%);
+    }
+}
+.main-slider{
+  padding: 20px 30px;
+  position: relative;
+  overflow: hidden;
+  
+}
+.close-icon{
+  transform: rotate(45deg);
+}
+.paragraph{
+  .paragraph();
+  &__highlighted{
+    &:extend(.paragraph);
+    text-transform: uppercase;
+    &:after{
+      content: '';
+      display: block;
+      width: 30px;
+      margin-top: 5px;
+      height: 0px;
+      border-bottom: 3px solid @dark-blue;
+    }
+  }
+}
+
+.slide{
+  width: 100%;
+  padding: 20px 30px;
+  .xs(padding, 10px);
+  position: absolute;
+  top: 0;
+  left: 0;
+  opacity: 0;
+  z-index: -1;
+  &.out{
+    opacity: 1;
+    animation-name: previousSlide;
+    animation-duration: 1s;
+    animation-timing-function: linear;
+  }
+  &.active{
+    opacity: 1;
+    z-index: 1;
+    animation-name: nextSlide;
+    animation-duration: 1s;
+    animation-timing-function: linear;
+  }
+  &__content{
+    display: flex;
+    .xs(flex-direction, column);
+    width: 100%;
+  }
+  &__img{
+    width: 50%;
+    .xs(width, 100%);
+  }
+  &__text{
+    width: 50%;
+    .xs(width, 100%);
+    padding: 0 24px;
+    .xs(padding, 0);
+    align-self: center;
+  }
+  &__title{
+    .title();
+    .md(font-size, 24px);
+    margin-left: -70px;
+    .xs(margin-left, 0);
+    .xs(letter-spacing, normal);
+  }
+  &__btn{
+    background-color: @dark-blue;
+    position: relative;
+    width: 48px;
+    height: 48px;
+    text-align: center;
+    display: table-cell;
+    vertical-align: middle;
+    a{
+      text-align: center;
+      transition: 1s;
+
+      .btn();
+    }
+  }
+  &__description{
+    margin-top: 20px;
+    .paragraph();
+    .md(font-size, 14px);
+  }
+  &__expanded-area{
+    display: block;
+    position: absolute;
+    width: 20%;
+    .xs(width, 100%);
+    background-color: @dark-blue;
+
+    top: 0;
+    .xs(top, auto);
+    .xs(bottom, -100%);
+    right: 0;
+    .xs(right, auto);
+    .xs(left, 0%);
+    max-height: 100%;
+    overflow: hidden;
+    overflow-y: scroll;
+    visibility: hidden;
+    &.open{
+
+      padding: 15px;
+      animation-name: slideRight;
+      animation-duration: 1s;
+      animation-timing-function: linear;
+      visibility: visible;
+      .product-items{
+
+        animation-name: slideDown;
+        animation-duration: 2s;
+        animation-timing-function: linear;
+
+
+      }
+    }
+    &.closed{
+      animation-name: slideLeft;
+      animation-duration: 1s;
+      animation-delay: 1s;
+      animation-timing-function: linear;
+      visibility: visible;
+      .product-items{
+        animation-name: slideUp;
+        animation-duration: 2s;
+        animation-timing-function: linear;
+      }
+    }
+  }
+}
+.product-items{
+  max-height: 100%;
+  display: flex;
+  justify-content: center;
+  flex-direction: column;
+}
+.product-item{
+  max-width: 180px;
+  margin:0 auto 30px;
+  &__description{
+    color: @white;
+    margin-top: 10px;
+    a{
+      color: @white;
+      text-decoration: none;
+
+    }
+  }
+  &__name{
+    text-transform: uppercase;
+    display: block;
+
+  }
+  &__price{
+    display: block;
+  }
+}
